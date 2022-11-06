@@ -1,70 +1,52 @@
-# Getting Started with Create React App
+# Frontend Practical Exercise
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This application allows peers to leave feedback for other team members. For this exercise, you are to implement the required tasks below, along with any bonus tasks you also have time to complete.
 
-## Available Scripts
+Designs for all tasks are [available in Figma](https://www.figma.com/file/asGirAC5we0KAqfWXXXmVN/Practical-FE-Exercise), please follow these designs for all tasks.
 
-In the project directory, you can run:
+Each task needs to be its own PR, with a thorough description and no unrelated changes, merged to main (no reviews are required). Git usage is very important. We want to get a clear overview of your work just by looking at your commit history.
 
-### `npm start`
+* The login page allows you to quickly login as a different user to see the data from the perspective of that user.
+* Feedback are a one time event. There is an optional task to extend this functionality to monthly reports.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Task 1: Gather Feedback
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+A user can provide feedback on other team members (_"Share Feedback" in Figma_).  For a selected team member, they will answer a series of questions. 
 
-### `npm test`
+- The questions to ask are already stored in the React context. Keep in mind that some are _skippable_.
+- Create the user interface needed to ask and collect answers for each question for a selected team member.
+- Update the app to save the results of the feedback.  _The saved results do not need to persist through a page refresh but the app should allow full navigation without data loss._
+- Your data model should support feedback from/to various users.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Task 2: Display Feedback Given
 
-### `npm run build`
+After having given feedback, a user can review all the feedback they have given to other team members (_"My Feedback" in Figma_).
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Display all feedback given by the current user.  
+- Include the case of when no feedback has been given.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Task 3: Display Received Feedback 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Besides giving feedback, a user can also see feedback received from their team (_This does not exist in Figma other than the navigation item "Team Feedback", but you can model it after the layout of the previous task._).
 
-### `npm run eject`
+- Display the feedback received by the current user from other team members.
+- Include the case of when no feedback has been received.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Bonus Tasks (optional)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Feel free to also implement any the following task:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- [ ] Add Accessibility (A11y) testing and update components to comply
+- [ ] Create a dark theme for the project
+- [ ] Make the logged user widget, displayed in the upper-right corner the same as in designs
+- [ ] Make the app more responsive on various devices
+- [ ] Update the app to have multiple feedback collections (per month) for each user
+- [ ] Write some tests (jest, cypress, react testing library, etc)
+- [ ] Add documentation about your tasks to help other developers understand decisions you made
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Demo video
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+After you've wrapped up your project, please record a simple video, going through the main flows
+- Going through the feedback form
+- Giving multiple feedbacks
+- Logging out and in with a different user and checking the previously given feedback
