@@ -1,0 +1,135 @@
+.section{
+      height: 100%;
+      width: 100%;
+
+      &-container{
+            max-width: 50%;
+            margin: 0 auto;
+
+            &-header{
+                  width: 100%;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-top: 4rem;
+
+                  h1{
+                        font-size: 2rem;
+                  }
+
+                  span{
+                        width: 20rem;
+                        label{
+                              font-size: 1.1rem;
+                              font-weight: 700;
+                        }
+
+                        select{
+                              outline : 0;
+                              border: 1px solid var(--borderColor);
+                              width: 100%;
+                              height: 3rem;
+                              color: var(--borderColor);
+                              margin-top: 2px;
+                              border-radius: 3px;
+                              font-weight: 600;
+                              font-size: 1.2rem;
+                        }
+                  }
+            }
+
+            &-body{
+                  width: 100%;
+                  height: 30rem;
+                  border: 1px solid var(--borderColor);
+                  border-radius: 4px;
+                  margin-top: 1rem;
+                  overflow-y: auto;
+
+                  ul{
+                      width: 100%;
+                      height: 100%;
+                      display: flex;
+                      flex-direction: column;
+
+                      li:not(:last-child){
+                        border-bottom: 1px solid var(--borderColor);
+                      }
+
+                      li{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        cursor: pointer;
+                        font-weight: 500;
+                        padding: 0.5rem 1.5rem;
+                        
+                        &:hover{
+                              background-color: var(--primaryLightColor);
+                        }
+
+                        &:hover div{
+                              font-weight: 700;
+                        }
+
+                        div{
+                              display: flex;
+                              align-items: center;
+                              gap: 2rem;
+                              font-size: 1.4rem;
+
+                              img{
+                              height: 4rem;
+                              width: 4rem;
+                              object-fit: cover;
+                              border-radius: 50%;
+                              }
+                        }
+
+                        span{
+                              height: 3.5rem;
+                              width: 14rem;
+                              font-size: 1.3rem;
+
+                              button{            
+                              border-radius: 3px;
+                              outline : 0;
+                              border-color: transparent;
+                              height: 100%;
+                              width: 100%;
+                              
+                              &:active{
+                                    transform: translateY(1px);
+                              }
+                              }
+
+                              .fill-btn{
+                              color: white;
+                              background-color: var(--primaryColor); 
+
+                                    &:hover{
+                                          background-color: #7d09d5;
+                                    }
+
+                              }
+                              .outline-btn{
+                                    color: var(--copyColor);
+                                    font-weight: 700;
+                                    border: 1px solid var(--borderColor);
+                                   
+                                    &:hover{
+                                          background-color: var(--primaryMediumColor);
+                                    }
+                              }
+
+                              .display{
+                                    display: none;
+                              }
+                        }
+                  }
+
+
+                  }
+            }
+      }
+}
