@@ -93,9 +93,14 @@
 
                         &:hover{
                               background-color: var(--borderColor);
-                              color: white;
                         }
                   }
+
+                  .bg{
+                              background-color: var(--copyColor);
+                              color: white;
+                        }
+
                  }
 
                  &-text{
@@ -127,7 +132,7 @@
                         outline: 0;
                         height: 3.5rem;
                         width: 10rem;
-                        cursor: pointer;
+                        cursor: pointer; 
                         font-weight: 600;
                         border: 1px solid var(--borderColor);
 
@@ -140,7 +145,6 @@
                               transform: scale(1.03);
                         }
                   }
-
                   .next-btn:hover{
                        background-color: var(  --primaryColor);
                        color: white;      

@@ -1,9 +1,10 @@
-import React, {useState, useEffect, Fragment} from "react";
+import React, {useState, Fragment} from "react";
+import {useParams, useNavigate} from "react-router-dom";
 import {useStateContext} from "../../context/ContextProvider";
 import styles from "./Questions.module.scss";
 import {IoIosArrowBack} from "react-icons/io";
 import people from "../../data/people.json";
-import questionsData from "../../data/questions.json";
+import questions from "../../data/questions.json";
 
 const divs = [
 	{
@@ -38,109 +39,78 @@ const divs = [
 	},
 ];
 
-const initialState = {
-	currentQuestion: {},
-	nextQuestion: {},
-	prevQuestion: {},
-	noOfQuestionsAnswered: 0,
-	currentQuestionIndex: 0,
-};
-
-const initialResponse = {
-	qtn1: 0,
-	qtn2: 0,
-	qtn3: 0,
-	qtn4: 0,
-	qtn5: 0,
-	qtn6: 0,
-	qtn7: 0,
-	qtn8: 0,
-	qtn9: 0,
-};
-
-const Questions = ({currentUserId}) => {
+const Questions = () => {
+	const {
+		displayQuestion,
+		setDisplayQuestion,
+		responses,
+		setResponses,
+		currentUserId,
+	} = useStateContext();
 	const currentUser = people.find((user) => user.id === currentUserId);
-	const {displayQuestion, setDisplayQuestion} = useStateContext();
-	const [questions, setQuestions] = useState(questionsData);
-	const [userResponse, setUserResponse] = useState(initialResponse);
-	const [otherProp, setOtherProp] = useState(initialState);
+	const {id} = useParams();
+	const navigate = useNavigate();
+	const [currentQtn, setCurrentQtn] = useState(0);
 	const [textValue, setTextValue] = useState("");
-	// const [bg, setBg] = useState(false);
-	const [id, setId] = useState("");
-	// let counter = 0;
+	const [choice, setChoice] = useState(1);
+	const [index, setIndex] = useState("");
 
-	const displayQtn = (
-		qtn,
-		currentQuestion,
-		nextQuestion,
-		prevQuestion,
-		currentQuestionIndex,
-	) => {
-		let currentIndex = currentQuestionIndex;
-		if (qtn.length !== 0) {
-			currentQuestion = qtn[currentIndex];
-			nextQuestion = qtn[currentIndex + 1];
-			prevQuestion = qtn[currentIndex - 1];
+	const handlePrevious = () => {
+		const prevQtn = currentQtn - 1;
 
-			setOtherProp({
-				...otherProp,
-				currentQuestion,
-				nextQuestion,
-				prevQuestion,
-				currentQuestionIndex,
-			});
+		setCurrentQtn(prevQtn);
+	};
+
+	const handleNext = () => {
+		const nxQtn = currentQtn + 1;
+		setCurrentQtn(nxQtn);
+		setIndex("");
+		setChoice(1);
+		setTextValue("");
+
+		if (questions[currentQtn].type === "scale") {
+			const value = index + 1;
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else if (questions[currentQtn].type === "multipleChoice") {
+			const value = choice;
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else if (questions[currentQtn].type === "text") {
+			const value = textValue;
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else {
+			return null;
 		}
-	};
 
-	useEffect(() => {
-		displayQtn(
-			questions,
-			otherProp.currentQuestion,
-			otherProp.nextQuestion,
-			otherProp.prevQuestion,
-			otherProp.currentQuestionIndex,
-		);
-	}, []);
-
-	const handlePrevious = (qtn) => {
-		setOtherProp({
-			...otherProp,
-			currentQuestion: qtn[otherProp.currentQuestionIndex - 1],
-			currentQuestionIndex: otherProp.currentQuestionIndex - 1,
-		});
-	};
-
-	const handleNext = (qtn) => {
-		setUserResponse();
-
-		setOtherProp({
-			...otherProp,
-			currentQuestionIndex: otherProp.currentQuestionIndex + 1,
-			currentQuestion: qtn[otherProp.currentQuestionIndex + 1],
-		});
+		currentQtn === 8 && navigate(`/home/${id}/my-feedback`);
 	};
 
 	const handleSkip = (qtn) => {
-		setOtherProp({
-			...otherProp,
-			currentQuestion: qtn[otherProp.currentQuestionIndex + 2],
-			currentQuestionIndex: otherProp.currentQuestionIndex + 2,
-		});
+		const skipQtn = currentQtn + 1;
+		setCurrentQtn(skipQtn);
+
+		setIndex("");
+		setChoice(1);
+		setTextValue("");
+
+		if (questions[currentQtn].type === "scale") {
+			const value = "SKIPPED";
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else if (questions[currentQtn].type === "multipleChoice") {
+			const value = "SKIPPED";
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else if (questions[currentQtn].type === "text") {
+			const value = "SKIPPED";
+			setResponses([(responses[currentQtn] = {value})]);
+			setResponses([...responses]);
+		} else {
+			return null;
+		}
 	};
-
-	const handleScale = (divId, e) => {
-		const currentDiv = divs.find((div) => div.id === divId);
-		const id = currentDiv.id;
-
-		// counter++;
-
-		setId(id);
-	};
-
-	// console.log(counter, "counter");
-	// console.log(id, "id");
-
-	const handleChoice = (value) => {};
 
 	return (
 		<Fragment>
@@ -156,39 +126,45 @@ const Questions = ({currentUserId}) => {
 						</p>
 						<div className={styles["container-header-two"]}>
 							<div>
-								<h1>{otherProp.currentQuestion.label}</h1>
-								<p>SHARE YOUR FEEDBACK FOR {currentUser.name.toUpperCase()}</p>
+								<h1>{questions[currentQtn].label}</h1>
+								<p>
+									SHARE YOUR FEEDBACK FOR{" "}
+									{currentUser ? currentUser.name.toUpperCase() : null}
+								</p>
 							</div>
-							<img src={currentUser.avatarUrl} alt='user' />
+							<img
+								src={currentUser ? currentUser.avatarUrl : null}
+								alt='user'
+							/>
 						</div>
 					</div>
 
 					<div className={styles["container-body"]}>
 						<div className={styles["container-body-main"]}>
-							{otherProp.currentQuestion.type === "scale" && (
+							{questions[currentQtn].type === "scale" && (
 								<div className={styles["container-body-main-scale"]}>
-									{divs.map((div) => (
+									{divs.map((div, i) => (
 										<div
 											key={div.id}
-											className={div.id === id ? styles.bg : null}
-											onClick={() => handleScale(div.id)}
+											className={i <= index ? styles.bg : null}
+											onClick={() => setIndex(i)}
 										/>
 									))}
 								</div>
 							)}
-							{otherProp.currentQuestion.type === "multipleChoice" && (
+							{questions[currentQtn].type === "multipleChoice" && (
 								<div className={styles["container-body-main-choice"]}>
-									{otherProp.currentQuestion.options.map((option) => (
+									{questions[currentQtn].options.map((option, i) => (
 										<p
+											className={choice === option.value ? styles.bg : ""}
 											key={option.value}
-											value={option.value}
-											onClick={() => handleChoice(option.value)}>
+											onClick={() => setChoice(option.value)}>
 											{option.label}
 										</p>
 									))}
 								</div>
 							)}
-							{otherProp.currentQuestion.type === "text" && (
+							{questions[currentQtn].type === "text" && (
 								<div className={styles["container-body-main-text"]}>
 									<textarea
 										type='text'
@@ -201,31 +177,30 @@ const Questions = ({currentUserId}) => {
 						</div>
 						<div className={styles["container-body-nav"]}>
 							<button
-								onClick={() => handlePrevious(questions)}
-								disabled={otherProp.currentQuestionIndex === 0 ? true : false}>
+								onClick={handlePrevious}
+								disabled={currentQtn === 0 ? true : false}>
 								Previous
 							</button>
 							<button
-								onClick={() => handleSkip(questions)}
-								disabled={otherProp.currentQuestionIndex >= 7 ? true : false}>
+								onClick={handleSkip}
+								disabled={
+									currentQtn >= 8
+										? true
+										: false || questions[currentQtn].required === true
+										? true
+										: false
+								}>
 								Skip
 							</button>
-							<button
-								className={styles["next-btn"]}
-								onClick={() => handleNext(questions)}
-								disabled={otherProp.currentQuestionIndex >= 8 ? true : false}>
+							<button className={styles["next-btn"]} onClick={handleNext}>
 								Next
 							</button>
 						</div>
 						<div className={styles["container-body-footer"]}>
-							<meter
-								value={otherProp.currentQuestionIndex}
-								min={-1}
-								max={questions.length}
-							/>
+							<meter value={currentQtn + 1} min={0} max={questions.length} />
 							<p>QUESTIONS COMPLETED</p>
 							<p>
-								{otherProp.currentQuestionIndex + 1}/{questions.length + 1}
+								{currentQtn + 1}/{questions.length}
 							</p>
 						</div>
 					</div>
@@ -236,8 +211,3 @@ const Questions = ({currentUserId}) => {
 };
 
 export default Questions;
-
-// disabled={otherProp.currentQuestion.required === true ? true : false
-// disabled={otherProp.currentQuestionIndex <= 0 ? true : false}
-// disabled={otherProp.currentQuestion.required === true ? true : false}
-// }

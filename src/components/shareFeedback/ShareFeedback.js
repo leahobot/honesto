@@ -7,10 +7,9 @@ import styles from "./ShareFeedback.module.scss";
 
 const Feedback = () => {
 	const {id} = useParams();
-	const {displayQuestion, setDisplayQuestion} = useStateContext();
+	const {displayQuestion, setDisplayQuestion, currentUserId, setcurrentUserId} =
+		useStateContext();
 	const [displaySubBtn, setDisplaySubBtn] = useState(false);
-	// const [removeBtn, setRemoveBtn] = useState(false);
-	const [currentUserId, setcurrentUserId] = useState("");
 
 	const allUsers = people.filter((person) => person.id !== id);
 
@@ -20,6 +19,8 @@ const Feedback = () => {
 		setDisplayQuestion(false);
 		// setRemoveBtn(true);
 	};
+
+	const handleViewUser = (userId) => {};
 
 	return (
 		<section className={styles.section}>
@@ -46,6 +47,7 @@ const Feedback = () => {
 
 									<span>
 										<button
+											onClick={() => handleViewUser(user.id)}
 											className={
 												user.id === currentUserId && displaySubBtn
 													? styles["outline-btn"]
@@ -69,7 +71,7 @@ const Feedback = () => {
 					</div>
 				</div>
 			)}
-			{!displayQuestion && <Questions currentUserId={currentUserId} />}
+			{!displayQuestion && <Questions />}
 		</section>
 	);
 };
