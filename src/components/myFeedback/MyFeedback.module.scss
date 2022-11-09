@@ -1,0 +1,150 @@
+.section{
+      height: 100%;
+      width: 100%;
+      overflow-y: auto;
+
+      &-width{
+            max-width: 87%;
+            margin: 0 auto;
+
+            &-header{
+                  font-weight: 600;
+                  width: 100%;
+                  display: flex;
+                  align-items: flex-end;
+                  justify-content: space-between;
+                  margin-top: 5rem;
+                  margin-bottom: 0.5rem;
+
+                  h1{
+                        font-size: 2rem;
+                  }
+
+                  span{
+                        display: inline-flex;
+                        flex-direction: column;
+
+                        label{
+                              font-weight: 700;
+                              font-size: 1.1em;
+                        }
+
+                        select{
+                              outline: 0;
+                              font-weight: 600;
+                              border: 1px solid var(--borderColor);
+                              color: var(--borderColor);
+                              height: 3rem;
+                              width: 17rem;
+                              border-radius: 3px;
+                        }
+                  }
+            }
+
+            &-body{
+                  display: grid;
+                  grid-template-columns: 1fr 2fr;
+                  gap: 4rem;
+                  width: 100%;
+                  height: 33rem;
+                  padding-top: 1rem;
+                  overflow-y: auto;
+                  border-radius: 3px;
+                  border: 0.5px solid var(--borderColor);
+
+                  &-one{
+
+                        h1{
+                              padding-left: 1.5rem;
+                              padding-bottom: 1.5rem;
+                        }
+
+                        ul{
+                              display: flex;
+                              flex-direction: column;
+
+                              li{
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 2rem;
+                                    cursor: pointer;
+                                    padding: 1rem 2rem;
+                                    border-bottom: 1px solid var(--borderColor);
+                                    border-top: 1px solid var(--borderColor);
+
+                                    img{
+                                          height: 4rem;
+                                          width: 4rem;
+                                          border-radius: 50%;
+                                          object-fit: cover;
+                                    }
+
+                                    p{
+                                          font-size: 1.4rem;
+                                       
+                                    }
+                              }
+
+                              &:hover{
+                                    background-color: var(--primaryMediumColor);
+                              }
+
+                              &:active{
+                                    background-color: var(--primaryColor);
+                                    color: white
+                              }
+
+                              &:hover p{
+                                    font-weight: 600;
+                              }
+                        }
+                  }
+
+                  &-two{
+
+                        h3{
+                        font-size: 1.4rem;
+                        margin-top: 1rem;
+                        }
+
+                        ul{
+                        margin-top: 1rem;
+                        list-style: none;
+                        margin-right: 1.5rem;
+
+                              li{
+                                 font-size: 1.3rem;
+                                 padding: 1.2rem  0;
+                                 display: flex;
+                                 justify-content: space-between;
+                                 align-items: center;
+                                 border-bottom: 1px solid var(--borderColor);  
+
+                                 .label{
+                                    font-weight: 500;
+                                    width: 55%;
+                                 }
+
+                                 .divs{
+                                    display: flex;
+                                    justify-content: flex-end;
+                                    gap: 4.5px;
+                                    width: 50%;
+
+                                    div{
+                                          height: 3rem;
+                                          width: 2rem;
+                                          background-color: var(--borderColor);
+                                    }
+                                 }
+
+                                 
+                              }
+                        }
+                        
+                  }
+            }
+
+           
+      }
+}

@@ -4,8 +4,19 @@ const StateContext = createContext();
 
 export const ContextProvider = ({children}) => {
 	const [displayQuestion, setDisplayQuestion] = useState(true);
+	const [responses, setResponses] = useState([]);
+	const [currentUserId, setcurrentUserId] = useState("");
+
 	return (
-		<StateContext.Provider value={{displayQuestion, setDisplayQuestion}}>
+		<StateContext.Provider
+			value={{
+				displayQuestion,
+				setDisplayQuestion,
+				responses,
+				setResponses,
+				currentUserId,
+				setcurrentUserId,
+			}}>
 			{children}
 		</StateContext.Provider>
 	);
