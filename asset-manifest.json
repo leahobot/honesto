@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/honesto/static/css/main.803fbf7d.css",
+    "main.js": "/honesto/static/js/main.f74b6582.js",
+    "static/js/787.abea12bb.chunk.js": "/honesto/static/js/787.abea12bb.chunk.js",
+    "static/media/background.png": "/honesto/static/media/background.d0c4285a8a28b2665ed6.png",
+    "index.html": "/honesto/index.html",
+    "main.803fbf7d.css.map": "/honesto/static/css/main.803fbf7d.css.map",
+    "main.f74b6582.js.map": "/honesto/static/js/main.f74b6582.js.map",
+    "787.abea12bb.chunk.js.map": "/honesto/static/js/787.abea12bb.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.803fbf7d.css",
+    "static/js/main.f74b6582.js"
+  ]
+}
